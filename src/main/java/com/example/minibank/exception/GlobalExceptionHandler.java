@@ -1,6 +1,7 @@
 package com.example.minibank.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -74,4 +75,18 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(status).body(response);
     }
+    @ExceptionHandler(AccountClosedException.class)
+    public ResponseEntity<ErrorResponse> handleAccountClosed(AccountClosedException ex,
+                                                             HttpServletRequest request){
+        return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
+    }
+    @ExceptionHandler(AccountHasBalanceException.class)
+    public ResponseEntity<ErrorResponse> handleAccountHasBalance(
+            AccountHasBalanceException ex,
+            HttpServletRequest request
+    ) {
+        return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
+    }
+
+
 }

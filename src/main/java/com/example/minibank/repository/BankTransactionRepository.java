@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface BankTransactionRepository extends JpaRepository<BankTransaction, Long> {
 
-    List<BankTransaction> findAllByFromAccountIdOrToAccountId(Long fromAccountId, Long toAccountId);
+    List<BankTransaction> findAllByFromAccountIdOrToAccountId
+            (Long fromAccountId, Long toAccountId);
 }

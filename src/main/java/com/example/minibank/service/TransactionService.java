@@ -1,4 +1,5 @@
 package com.example.minibank.service;
+import com.example.minibank.dto.TransactionView;
 import com.example.minibank.dto.TransferRequest;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.minibank.dto.MoneyOperationRequest;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.minibank.exception.NotEnoughMoneyException;
 import com.example.minibank.exception.ResourceNotFoundException;
+
+import java.util.List;
 
 
 @Service
@@ -96,4 +99,17 @@ public class TransactionService {
 
         return transactionRepository.save(transaction);
     }
-}
+    @Transactional
+    public List<TransactionView> getHistory(Long accountId) {
+      accountRepository.findById(accountId)
+              .orElseThrow(() -> new ResourceNotFoundException("Account not found"+accountId));
+        List<BankTransaction> transactions = transactionRepository
+                .findAllByFromAccountIdOrToAccountId(accountId, accountId);
+
+        return transactions.stream()
+                .map(TransactionView::from)
+                .toList();
+    }
+
+    }
+

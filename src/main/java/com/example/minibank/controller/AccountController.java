@@ -1,5 +1,6 @@
 package com.example.minibank.controller;
 
+import com.example.minibank.dto.AccountStatusView;
 import com.example.minibank.dto.CreateAccountRequest;
 import com.example.minibank.entity.Account;
 import com.example.minibank.service.AccountService;
@@ -16,6 +17,8 @@ public class AccountController {
 
     private final AccountService accountService;
 
+
+
     @PostMapping
     public Account createAccount(@Valid @RequestBody CreateAccountRequest request) {
         return accountService.createAccount(request);
@@ -30,4 +33,9 @@ public class AccountController {
     public List<Account> getAccountsByClientId(@PathVariable Long clientId) {
         return accountService.getAccountsByClientId(clientId);
     }
+    @PostMapping("/{id}/close")
+    public AccountStatusView closeAccount(@PathVariable Long id) {
+        return accountService.close(id);
+    }
+
 }
