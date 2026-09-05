@@ -1,4 +1,8 @@
 package com.example.minibank.exception;
 
-public class AccountClosedException {
+public class AccountClosedException extends RuntimeException {
+
+    public AccountClosedException(String message) {
+        super(message);
+    }
 }

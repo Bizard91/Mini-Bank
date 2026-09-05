@@ -1,4 +1,13 @@
 package com.example.minibank.dto;
 
-public class AccountStatusView {
+import com.example.minibank.entity.AccountStatus;
+
+import java.math.BigDecimal;
+
+public record AccountStatusView(
+        Long id,
+        AccountStatus status,
+        BigDecimal balance
+) {
+
 }
